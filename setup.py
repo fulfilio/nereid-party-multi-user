@@ -70,7 +70,7 @@ requires.append(
 )
 
 setup(
-    name='trytond_%s' % module_name,
+    name='%s' % module_name,
     version=info.get('version', '0.0.1'),
     description=info.get('description', ''),
     author=info.get('author', ''),
@@ -84,8 +84,8 @@ setup(
         'trytond.modules.%s.tests' % module_name,
     ],
     package_data={
-        'trytond.modules.%s' % module_name: info.get('xml', [])
-            + ['tryton.cfg', 'locale/*.po', 'tests/*.rst'],
+        'trytond.modules.%s' % module_name: info.get('xml', []) +
+            ['tryton.cfg', 'locale/*.po', 'tests/*.rst'],
     },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -94,7 +94,7 @@ setup(
         'Intended Audience :: Financial and Insurance Industry',
         'Intended Audience :: Legal Industry',
         'Intended Audience :: Manufacturing',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'License :: OSI Approved :: BSD',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',

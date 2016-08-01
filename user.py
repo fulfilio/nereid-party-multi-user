@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    user
-
-    :copyright: (c) 2012-2013 by Openlabs Technologies & Consulting (P) LTD
-    :license: GPLv3, see LICENSE for more details.
-"""
 from trytond.model import ModelSQL, fields
 from trytond.pool import PoolMeta
 from nereid import login_required, request, flash, redirect, url_for, jsonify, \

@@ -1,12 +1,6 @@
 Nereid Party Multi User
 =======================
 
-[![Build Status](https://travis-ci.org/openlabs/nereid-party-multi-user.svg?branch=develop)](https://travis-ci.org/openlabs/nereid-party-multi-user)
-[![Downloads](https://pypip.in/download/trytond_nereid-party-multi-user/badge.svg)](https://pypi.python.org/pypi/trytond_nereid-party-multi-user/)
-[![Latest Version](https://pypip.in/version/trytond_nereid-party-multi-user/badge.svg)](https://pypi.python.org/pypi/trytond_nereid-party-multi-user/)
-[![Development Status](https://pypip.in/status/trytond_nereid-party-multi-user/badge.svg)](https://pypi.python.org/pypi/trytond_nereid-party-multi-user/)
-[![Coverage Status](https://coveralls.io/repos/openlabs/nereid-party-multi-user/badge.svg?branch=develop)](https://coveralls.io/r/openlabs/nereid-party-multi-user?branch=develop)
-
 Introduction
 ------------
 
