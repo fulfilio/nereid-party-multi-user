@@ -70,7 +70,7 @@ requires.append(
 )
 
 setup(
-    name='%s' % module_name,
+    name='trytond_%s' % module_name,
     version=info.get('version', '0.0.1'),
     description=info.get('description', ''),
     author=info.get('author', ''),
