@@ -49,7 +49,7 @@ class NereidUser:
 
     @classmethod
     @login_required
-    @route('/change-current-party/<int:party_id>')
+    @route('/change-current-party/<int:party_id>', readonly=False)
     def change_party(cls, party_id):
         """
         Updates the current party of the nereid_user to the new party_id if
