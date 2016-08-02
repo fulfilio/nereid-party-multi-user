@@ -1,27 +1,5 @@
-Nereid Party Mutli User
+Nereid Party Multi User
 =======================
-
-Build Status 
-------------
-
-master
-++++++
-
-.. image:: https://travis-ci.org/openlabs/nereid-party-multi-user.png?branch=master
-  :target: https://travis-ci.org/openlabs/nereid-party-multi-user
-
-develop
-+++++++
-
-.. image:: https://travis-ci.org/openlabs/nereid-party-multi-user.png?branch=develop
-  :target: https://travis-ci.org/openlabs/nereid-party-multi-user
-
-Coverage
---------
-
-.. image:: https://coveralls.io/repos/openlabs/nereid-party-multi-user/badge.png
-  :target: https://coveralls.io/r/openlabs/nereid-party-multi-user
-
 
 Introduction
 ------------
@@ -71,7 +49,7 @@ might want to follow the migration path explained below:
 To migrate the existing m2o/o2m relationship between party and nereid user
 --------------------------------------------------------------------------
 
-SQL::
+SQL:
 
     INSERT INTO "nereid_user-party_party" (nereid_user, party) (
         SELECT  id AS nereid_user, party FROM nereid_user
@@ -80,7 +58,7 @@ SQL::
 To migrate the name of the `party` as the `display_name`
 --------------------------------------------------------
 
-SQL::
+SQL:
 
     UPDATE nereid_user
         SET display_name = party.name

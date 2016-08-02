@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-    user
-
-    :copyright: (c) 2012-2013 by Openlabs Technologies & Consulting (P) LTD
-    :license: GPLv3, see LICENSE for more details.
-"""
 from trytond.model import ModelSQL, fields
 from trytond.pool import PoolMeta
 from nereid import login_required, request, flash, redirect, url_for, jsonify, \
-     route
+     route, current_user
 
 __all__ = ['NereidUser', 'NereidUserParty', 'Party']
 __metaclass__ = PoolMeta
@@ -18,11 +12,6 @@ class NereidUser:
     "Nereid User"
     __name__ = "nereid.user"
 
-    party = fields.Many2One(
-        'party.party', 'Party', required=True, ondelete='RESTRICT',
-        select=True, depends=['parties'],
-        help="Party from parties the user is currently related to"
-    )
     parties = fields.Many2Many(
         'nereid.user-party.party', 'nereid_user', 'party', 'Parties',
         help="Parties to which this user is related"
@@ -60,7 +49,7 @@ class NereidUser:
 
     @classmethod
     @login_required
-    @route('/change-current-party/<int:party_id>')
+    @route('/change-current-party/<int:party_id>', readonly=False)
     def change_party(cls, party_id):
         """
         Updates the current party of the nereid_user to the new party_id if
@@ -68,9 +57,9 @@ class NereidUser:
 
         :param party_id: ID of the party
         """
-        for party in request.nereid_user.parties:
+        for party in current_user.parties:
             if party.id == party_id:
-                cls.write([request.nereid_user], {'party': party.id})
+                cls.write([current_user], {'party': party.id})
                 break
         else:
             if request.is_xhr:
@@ -102,12 +91,13 @@ class NereidUserParty(ModelSQL):
 
 
 class Party:
-    """
-    Party
-    """
     __name__ = "party.party"
 
-    nereid_users = fields.Many2Many(
-        'nereid.user-party.party', 'party', 'nereid_user', 'Nereid Users',
-        help="Nereid Users which have access to this party"
-    )
+    @classmethod
+    def __setup__(cls):
+        super(Party, cls).__setup__()
+
+        cls.nereid_users = fields.Many2Many(
+            'nereid.user-party.party', 'party', 'nereid_user', 'Nereid Users',
+            help="Nereid Users which have access to this party"
+        )

@@ -1,12 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    test_user
-
-    Test the multi user implementation
-
-    :copyright: (c) 2013-2015 by Openlabs Technologies & Consulting (P) Limited
-    :license: BSD, see LICENSE for more details.
-"""
 import unittest
 
 from mock import patch
