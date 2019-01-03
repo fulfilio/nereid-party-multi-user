@@ -5,7 +5,7 @@ import sys
 import unittest
 import re
 import os
-import ConfigParser
+import configparser
 from setuptools import setup, Command
 
 
@@ -43,7 +43,7 @@ class SQLiteTest(Command):
         sys.exit(-1)
 
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.readfp(open('tryton.cfg'))
 info = dict(config.items('tryton'))
 for key in ('depends', 'extras_depend', 'xml'):
@@ -76,16 +76,17 @@ setup(
     author=info.get('author', ''),
     author_email=info.get('email', ''),
     url=info.get('website', ''),
-    download_url="http://downloads.tryton.org/" +
-            info.get('version', '0.0.1').rsplit('.', 1)[0] + '/',
+    download_url="http://downloads.tryton.org/" + info.get(
+        'version', '0.0.1').rsplit('.', 1)[0] + '/',
     package_dir={'trytond.modules.%s' % module_name: '.'},
     packages=[
         'trytond.modules.%s' % module_name,
         'trytond.modules.%s.tests' % module_name,
     ],
     package_data={
-        'trytond.modules.%s' % module_name: info.get('xml', []) +
-            ['tryton.cfg', 'locale/*.po', 'tests/*.rst'],
+        'trytond.modules.%s' % module_name: info.get('xml', []) + [
+            'tryton.cfg', 'locale/*.po', 'tests/*.rst'
+        ],
     },
     classifiers=[
         'Development Status :: 5 - Production/Stable',

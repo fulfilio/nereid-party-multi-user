@@ -5,10 +5,9 @@ from nereid import login_required, request, flash, redirect, url_for, jsonify, \
      route, current_user
 
 __all__ = ['NereidUser', 'NereidUserParty', 'Party']
-__metaclass__ = PoolMeta
 
 
-class NereidUser:
+class NereidUser(metaclass=PoolMeta):
     "Nereid User"
     __name__ = "nereid.user"
 
@@ -90,7 +89,7 @@ class NereidUserParty(ModelSQL):
     )
 
 
-class Party:
+class Party(metaclass=PoolMeta):
     __name__ = "party.party"
 
     @classmethod

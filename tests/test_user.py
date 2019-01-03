@@ -3,9 +3,10 @@ import unittest
 
 from mock import patch
 import trytond.tests.test_tryton
-from trytond.tests.test_tryton import POOL, USER, with_transaction
+from trytond.tests.test_tryton import activate_module, USER, with_transaction
 from trytond.config import config
 from trytond.transaction import Transaction
+from trytond.pool import Pool
 from nereid.testing import NereidTestCase
 
 config.set('email', 'from', 'from@xyz.com')
@@ -16,7 +17,7 @@ class TestNereidMultiUserCase(NereidTestCase):
     module = 'nereid_party_multi_user'
 
     def setUp(self):
-        trytond.tests.test_tryton.install_module('nereid_party_multi_user')
+        activate_module('nereid_party_multi_user')
 
         # Patch SMTP Lib
         self.smtplib_patcher = patch('smtplib.SMTP')
@@ -36,12 +37,12 @@ class TestNereidMultiUserCase(NereidTestCase):
         """
         Setup the defaults
         """
-        Currency = POOL.get('currency.currency')
-        Company = POOL.get('company.company')
-        Language = POOL.get('ir.lang')
-        NereidWebsite = POOL.get('nereid.website')
-        Party = POOL.get('party.party')
-        Locale = POOL.get('nereid.website.locale')
+        Currency = Pool().get('currency.currency')
+        Company = Pool().get('company.company')
+        Language = Pool().get('ir.lang')
+        NereidWebsite = Pool().get('nereid.website')
+        Party = Pool().get('party.party')
+        Locale = Pool().get('nereid.website.locale')
 
         party1, = Party.create([{
             'name': 'Openlabs',
@@ -59,7 +60,7 @@ class TestNereidMultiUserCase(NereidTestCase):
             'party': party1.id,
             'currency': usd.id,
         }])
-        en_us, = Language.search([('code', '=', 'en_US')])
+        en_us, = Language.search([('code', '=', 'en')])
         locale_en_us, = Locale.create([{
             'code': 'en_US',
             'language': en_us.id,
@@ -78,7 +79,7 @@ class TestNereidMultiUserCase(NereidTestCase):
         """
         Test the registration workflow
         """
-        NereidUser = POOL.get('nereid.user')
+        NereidUser = Pool().get('nereid.user')
 
         self.setup_defaults()
         app = self.get_app()
@@ -121,9 +122,9 @@ class TestNereidMultiUserCase(NereidTestCase):
         """
         Test switching between companies of the user
         """
-        Company = POOL.get('company.company')
-        NereidUser = POOL.get('nereid.user')
-        Party = POOL.get('party.party')
+        Company = Pool().get('company.company')
+        NereidUser = Pool().get('nereid.user')
+        Party = Pool().get('party.party')
 
         self.setup_defaults()
         app = self.get_app()
@@ -178,9 +179,9 @@ class TestNereidMultiUserCase(NereidTestCase):
         """
         Check the reverse relationship between party and the user
         """
-        Company = POOL.get('company.company')
-        NereidUser = POOL.get('nereid.user')
-        Party = POOL.get('party.party')
+        Company = Pool().get('company.company')
+        NereidUser = Pool().get('nereid.user')
+        Party = Pool().get('party.party')
 
         self.setup_defaults()
         party1, = Party.create([{
@@ -203,9 +204,9 @@ class TestNereidMultiUserCase(NereidTestCase):
         """
         Create more than one users
         """
-        Company = POOL.get('company.company')
-        NereidUser = POOL.get('nereid.user')
-        Party = POOL.get('party.party')
+        Company = Pool().get('company.company')
+        NereidUser = Pool().get('nereid.user')
+        Party = Pool().get('party.party')
 
         self.setup_defaults()
         party1, party2 = Party.create([
